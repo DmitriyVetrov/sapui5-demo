@@ -66,47 +66,55 @@
 
                 <Panel id="statisticsPanel" headerText="{i18n>statisticsSectionTitle}" class="sapUiMediumMarginTop">
                     <content>
-                        <VBox id="statisticsContent" class="sapUiSmallMargin" renderType="Bare">
-                            <Title id="wordStatsTitle" text="{i18n>wordStatsTitle}" level="H4" />
-                            <Table id="wordStatsTable" items="{view>/wordStats}" class="sapUiSmallMarginTop" noDataText="{i18n>noWordStats}">
-                                <columns>
-                                    <Column id="wordColumn">
-                                        <Text id="wordColumnText" text="{i18n>wordColumn}" />
-                                    </Column>
-                                    <Column id="wordCounterColumn" hAlign="End">
-                                        <Text id="wordCounterColumnText" text="{i18n>counterColumn}" />
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem id="wordStatsItem">
-                                        <cells>
-                                            <Text id="wordCellText" text="{view>word}" />
-                                            <ObjectNumber id="wordCounterNumber" number="{view>counter}" />
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
+                        <IconTabBar id="statisticsTabs" class="sapUiSmallMarginTop" expandable="false">
+                            <items>
+                                <IconTabFilter id="wordStatsTab" text="{i18n>wordStatsTitle}">
+                                    <content>
+                                        <Table id="wordStatsTable" items="{view>/wordStats}" class="sapUiSmallMarginTop" noDataText="{i18n>noWordStats}">
+                                            <columns>
+                                                <Column id="wordColumn">
+                                                    <Text id="wordColumnText" text="{i18n>wordColumn}" />
+                                                </Column>
+                                                <Column id="wordCounterColumn" hAlign="End">
+                                                    <Text id="wordCounterColumnText" text="{i18n>counterColumn}" />
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem id="wordStatsItem">
+                                                    <cells>
+                                                        <Text id="wordCellText" text="{view>word}" />
+                                                        <ObjectNumber id="wordCounterNumber" number="{view>counter}" />
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </content>
+                                </IconTabFilter>
 
-                            <Title id="alphabetStatsTitle" text="{i18n>alphabetStatsTitle}" level="H4" class="sapUiMediumMarginTop" />
-                            <Table id="alphabetStatsTable" items="{view>/alphabetStats}" class="sapUiSmallMarginTop" noDataText="{i18n>noAlphabetStats}">
-                                <columns>
-                                    <Column id="letterColumn">
-                                        <Text id="letterColumnText" text="{i18n>letterColumn}" />
-                                    </Column>
-                                    <Column id="alphabetCounterColumn" hAlign="End">
-                                        <Text id="alphabetCounterColumnText" text="{i18n>counterColumn}" />
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem id="alphabetStatsItem">
-                                        <cells>
-                                            <Text id="letterCellText" text="{view>letter}" />
-                                            <ObjectNumber id="alphabetCounterNumber" number="{view>counter}" />
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </VBox>
+                                <IconTabFilter id="alphabetStatsTab" text="{i18n>alphabetStatsTitle}">
+                                    <content>
+                                        <Table id="alphabetStatsTable" items="{view>/alphabetStats}" class="sapUiSmallMarginTop" noDataText="{i18n>noAlphabetStats}">
+                                            <columns>
+                                                <Column id="letterColumn">
+                                                    <Text id="letterColumnText" text="{i18n>letterColumn}" />
+                                                </Column>
+                                                <Column id="alphabetCounterColumn" hAlign="End">
+                                                    <Text id="alphabetCounterColumnText" text="{i18n>counterColumn}" />
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem id="alphabetStatsItem">
+                                                    <cells>
+                                                        <Text id="letterCellText" text="{view>letter}" />
+                                                        <ObjectNumber id="alphabetCounterNumber" number="{view>counter}" />
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </content>
+                                </IconTabFilter>
+                            </items>
+                        </IconTabBar>
                     </content>
                 </Panel>
             </VBox>
