@@ -1,35 +1,33 @@
-## Application Details
-|               |
-| ------------- |
-|**Generation Date and Time**<br>Tue Mar 31 2026 13:04:17 GMT+0000 (Coordinated Universal Time)|
-|**App Generator**<br>SAP Fiori Application Generator|
-|**App Generator Version**<br>1.22.0|
-|**Generation Platform**<br>SAP Business Application Studio|
-|**Template Used**<br>Basic|
-|**Service Type**<br>None|
-|**Service URL**<br>N/A|
-|**Module Name**<br>project-vietrov|
-|**Application Title**<br>App Title Veitrov|
-|**Namespace**<br>vietrov|
-|**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.146.0|
-|**Enable TypeScript**<br>False|
-|**Add Eslint configuration**<br>True, see https://www.npmjs.com/package/@sap-ux/eslint-plugin-fiori-tools#rules for the eslint rules.|
+Implementation details
 
-## project-vietrov
+#Phase 5
+Implemented [word-stats-service.js](/home/dmytro/git/sapui5-demo/srv/word-stats-service.js).
 
-An SAP Fiori application.
+Request flow from `processFile` to persistence:
 
-### Starting the generated app
+1. The CAP action `processFile` receives `fileName` and `content`.
+2. The handler validates both inputs and rejects the request with `400` if either is empty.
+3. It calls the separate parser module in [parser-service.js](/home/dmytro/git/sapui5-demo/services/parser-service.js), which returns:
+   - `totalWords`
+   - `uniqueWords`
+   - `words`
+   - `letters`
+4. The handler generates a new `fileId` and inserts one `Files` record with:
+   - `ID`
+   - `fileName`
+   - `content`
+   - `totalWords`
+   - `uniqueWords`
+5. It then calls [persistence-service.js](/home/dmytro/git/sapui5-demo/services/persistence-service.js) with:
+   - the CAP transaction
+   - entity references
+   - the new `fileId`
+   - the parser result
+6. The persistence service reuses or creates `Words`, then inserts the related `WordCounters` and `AlphabetStats` rows for that file.
+7. The handler returns the summary response:
+   - `fileId`
+   - `fileName`
+   - `totalWords`
+   - `uniqueWords`
 
--   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  To launch the generated application, run the following from the generated application root folder:
-
-```
-    npm start
-```
-
-#### Pre-requisites:
-
-1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
-
-
+The CAP handler stays thin here: validation, orchestration, and response shaping only.
