@@ -7,22 +7,32 @@ const persistenceService = require("../services/persistence-service");
 
 const { INSERT } = cds.ql;
 
-function requireNonEmptyString(value, fieldName, req) {
+function requireFileName(value, req) {
     const normalizedValue = typeof value === "string" ? value.trim() : "";
 
     if (!normalizedValue) {
-        req.reject(400, `${fieldName} is required.`);
+        req.reject(400, "fileName is required.");
     }
 
     return normalizedValue;
+}
+
+function requireContent(value, req) {
+    const content = typeof value === "string" ? value : "";
+
+    if (!content.trim()) {
+        req.reject(400, "content is required.");
+    }
+
+    return content;
 }
 
 module.exports = cds.service.impl(function () {
     const entities = this.entities;
 
     this.on("processFile", async (req) => {
-        const fileName = requireNonEmptyString(req.data.fileName, "fileName", req);
-        const content = requireNonEmptyString(req.data.content, "content", req);
+        const fileName = requireFileName(req.data.fileName, req);
+        const content = requireContent(req.data.content, req);
 
         const parseResult = parserService.parse(content);
         const fileId = cds.utils.uuid();
