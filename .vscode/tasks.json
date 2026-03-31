@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "build.mta",
+			"label": "Build MTA: vietrov.projectvietrov/mta.yaml",
+			"taskType": "Build",
+			"projectPath": "/home/user/projects/project-vietrov",
+			"extensions": []
+		}
+	]
+}
