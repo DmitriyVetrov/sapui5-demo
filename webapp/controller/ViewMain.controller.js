@@ -121,8 +121,8 @@ sap.ui.define([
         async _loadWordStats(sFileId) {
             const oResponse = await this._fetchJson(this._buildServiceUrl("WordCounters", {
                 "$expand": "word($select=word)",
-                "$select": "counter,file_ID",
-                "$filter": `file_ID eq ${sFileId}`,
+                "$select": "counter",
+                "$filter": `file/ID eq ${sFileId}`,
                 "$orderby": "counter desc"
             }));
 
@@ -134,8 +134,8 @@ sap.ui.define([
 
         async _loadAlphabetStats(sFileId) {
             const oResponse = await this._fetchJson(this._buildServiceUrl("AlphabetStats", {
-                "$select": "letter,counter,file_ID",
-                "$filter": `file_ID eq ${sFileId}`,
+                "$select": "letter,counter",
+                "$filter": `file/ID eq ${sFileId}`,
                 "$orderby": "counter desc,letter asc"
             }));
 

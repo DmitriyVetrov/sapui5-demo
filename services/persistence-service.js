@@ -78,8 +78,12 @@ async function insertWordCounters(tx, WordCounters, fileId, parsedWords, wordsBy
         }
 
         return {
-            file_ID: fileId,
-            word_ID: persistedWord.ID,
+            file: {
+                ID: fileId
+            },
+            word: {
+                ID: persistedWord.ID
+            },
             counter: entry.counter
         };
     });
@@ -93,7 +97,9 @@ async function insertAlphabetStats(tx, AlphabetStats, fileId, letters) {
     }
 
     const entries = letters.map((entry) => ({
-        file_ID: fileId,
+        file: {
+            ID: fileId
+        },
         letter: entry.letter,
         counter: entry.counter
     }));
