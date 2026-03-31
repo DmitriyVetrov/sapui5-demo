@@ -1,6 +1,115 @@
 <mvc:View controllerName="vietrov.projectvietrov.controller.ViewMain"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    xmlns:u="sap.ui.unified">
     <Page id="page" title="{i18n>title}">
+        <content>
+            <VBox id="mainLayout" class="sapUiSmallMargin demoPage" renderType="Bare">
+                <Panel id="uploadPanel" headerText="{i18n>uploadSectionTitle}">
+                    <content>
+                        <VBox id="uploadContent" class="sapUiSmallMargin" renderType="Bare">
+                            <u:FileUploader
+                                id="fileUploader"
+                                width="100%"
+                                fileType="txt"
+                                mimeType="text/plain"
+                                sameFilenameAllowed="true"
+                                placeholder="{i18n>fileUploaderPlaceholder}"
+                                change=".onFileChange" />
+
+                            <ObjectAttribute
+                                id="selectedFileAttribute"
+                                title="{i18n>selectedFileLabel}"
+                                text="{view>/selectedFileName}"
+                                visible="{view>/hasSelectedFile}"
+                                class="sapUiSmallMarginTop" />
+                            <Text
+                                id="noFileSelectedText"
+                                text="{i18n>noFileSelected}"
+                                visible="{= !${view>/hasSelectedFile} }"
+                                class="sapUiSmallMarginTop" />
+
+                            <Button
+                                id="processButton"
+                                text="{i18n>processButton}"
+                                type="Emphasized"
+                                press=".onProcessFile"
+                                class="sapUiSmallMarginTop"
+                                enabled="{= ${view>/hasSelectedFile} && !${view>/busy} }"
+                                busy="{view>/busy}" />
+
+                            <MessageStrip
+                                id="statusMessage"
+                                text="{view>/status/text}"
+                                type="{view>/status/type}"
+                                showIcon="true"
+                                showCloseButton="false"
+                                visible="{= ${view>/status/text} !== '' }"
+                                class="sapUiMediumMarginTop" />
+
+                            <Panel
+                                id="summaryPanel"
+                                headerText="{i18n>summaryTitle}"
+                                class="sapUiMediumMarginTop"
+                                visible="{= ${view>/summary/fileId} !== '' }">
+                                <content>
+                                    <VBox id="summaryContent" class="sapUiSmallMargin" renderType="Bare">
+                                        <ObjectAttribute id="summaryFileNameAttribute" title="{i18n>summaryFileName}" text="{view>/summary/fileName}" />
+                                        <ObjectAttribute id="summaryTotalWordsAttribute" title="{i18n>summaryTotalWords}" text="{view>/summary/totalWords}" />
+                                        <ObjectAttribute id="summaryUniqueWordsAttribute" title="{i18n>summaryUniqueWords}" text="{view>/summary/uniqueWords}" />
+                                    </VBox>
+                                </content>
+                            </Panel>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <Panel id="statisticsPanel" headerText="{i18n>statisticsSectionTitle}" class="sapUiMediumMarginTop">
+                    <content>
+                        <VBox id="statisticsContent" class="sapUiSmallMargin" renderType="Bare">
+                            <Title id="wordStatsTitle" text="{i18n>wordStatsTitle}" level="H4" />
+                            <Table id="wordStatsTable" items="{view>/wordStats}" class="sapUiSmallMarginTop" noDataText="{i18n>noWordStats}">
+                                <columns>
+                                    <Column id="wordColumn">
+                                        <Text id="wordColumnText" text="{i18n>wordColumn}" />
+                                    </Column>
+                                    <Column id="wordCounterColumn" hAlign="End">
+                                        <Text id="wordCounterColumnText" text="{i18n>counterColumn}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="wordStatsItem">
+                                        <cells>
+                                            <Text id="wordCellText" text="{view>word}" />
+                                            <ObjectNumber id="wordCounterNumber" number="{view>counter}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <Title id="alphabetStatsTitle" text="{i18n>alphabetStatsTitle}" level="H4" class="sapUiMediumMarginTop" />
+                            <Table id="alphabetStatsTable" items="{view>/alphabetStats}" class="sapUiSmallMarginTop" noDataText="{i18n>noAlphabetStats}">
+                                <columns>
+                                    <Column id="letterColumn">
+                                        <Text id="letterColumnText" text="{i18n>letterColumn}" />
+                                    </Column>
+                                    <Column id="alphabetCounterColumn" hAlign="End">
+                                        <Text id="alphabetCounterColumnText" text="{i18n>counterColumn}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="alphabetStatsItem">
+                                        <cells>
+                                            <Text id="letterCellText" text="{view>letter}" />
+                                            <ObjectNumber id="alphabetCounterNumber" number="{view>counter}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </content>
+                </Panel>
+            </VBox>
+        </content>
     </Page>
 </mvc:View>

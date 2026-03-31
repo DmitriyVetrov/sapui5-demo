@@ -10,6 +10,7 @@ framework:
   libraries:
     - name: sap.m
     - name: sap.ui.core
+    - name: sap.ui.unified
     - name: sap.ushell
     - name: themelib_sap_horizon
 server:
@@ -29,3 +30,6 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertErrors: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        backend:
+          - path: /odata
+            url: http://127.0.0.1:4004
