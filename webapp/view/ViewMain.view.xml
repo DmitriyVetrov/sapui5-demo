@@ -35,7 +35,7 @@
                                 type="Emphasized"
                                 press=".onProcessFile"
                                 class="sapUiSmallMarginTop"
-                                enabled="{= ${view>/hasSelectedFile} && !${view>/busy} }"
+                                enabled="{= ${view>/hasSelectedFile} &amp;&amp; !${view>/busy} }"
                                 busy="{view>/busy}" />
 
                             <MessageStrip

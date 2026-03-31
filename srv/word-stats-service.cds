@@ -1,6 +1,6 @@
 using { sap.cap.demo.wordstats as db } from '../db/schema';
 
-@path : '/word-stats'
+@path : 'word-stats'
 service WordStatsService {
     entity Files as projection on db.Files;
     entity Words as projection on db.Words;

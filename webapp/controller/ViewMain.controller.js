@@ -147,8 +147,11 @@ sap.ui.define([
                 return `${SERVICE_BASE_PATH}/${sEntityOrAction}`;
             }
 
-            const oSearchParams = new URLSearchParams(mQueryOptions);
-            return `${SERVICE_BASE_PATH}/${sEntityOrAction}?${oSearchParams.toString()}`;
+            const sQuery = Object.entries(mQueryOptions)
+                .map(([sKey, sValue]) => `${encodeURIComponent(sKey)}=${encodeURIComponent(sValue)}`)
+                .join("&");
+
+            return `${SERVICE_BASE_PATH}/${sEntityOrAction}?${sQuery}`;
         },
 
         async _fetchJson(sUrl, mOptions) {
