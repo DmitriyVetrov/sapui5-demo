@@ -21,6 +21,7 @@
   "scripts": {
     "start:cap": "cds serve",
     "watch:cap": "cds watch",
+    "test:parser": "node --test test/parser-service.test.js",
     "start": "fiori run --open \"test/flp.html#app-preview\"",
     "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flp.html#app-preview\"",
     "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",

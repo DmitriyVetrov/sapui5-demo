@@ -1,13 +1,14 @@
 "use strict";
 
 const WORD_SEPARATOR_REGEX = /[^\p{L}\p{N}\s]+/gu;
-const WHITESPACE_REGEX = /\s+/u;
+const WHITESPACE_REGEX = /\s+/gu;
 const LETTER_REGEX = /\p{L}/gu;
 
 function normalizeText(content) {
     return String(content || "")
         .toLocaleLowerCase()
         .replace(WORD_SEPARATOR_REGEX, " ")
+        .replace(WHITESPACE_REGEX, " ")
         .trim();
 }
 
